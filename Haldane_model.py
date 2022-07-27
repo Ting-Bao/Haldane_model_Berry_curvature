@@ -33,8 +33,10 @@ def get_H(t1,t2,phi,k,M):
     return H
 
 
-def get_berryphase(kxlist,kylist,berry_curv,kx_min=0.,kx_max=1.,ky_min= 0.,ky_max=1.):
-    print 
+def get_berryphase(kxlist,kylist,berry_curv,,kx_min=0.,kx_max=1.,ky_min= 0.,ky_max=1.):
+    """ draw a rectangle loop
+    dsize means the step using in meshing the BZ
+    """
 
 def main(t1=1,t2=0.1,M=0.1,phi=pi/8):
     '''parameters, change as required
