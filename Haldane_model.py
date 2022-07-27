@@ -93,7 +93,7 @@ def main(t1=1,t2=0.1,M=0.1,phi=pi/8):
         ,label='Berry curvature')
     temp="t1={} t2={} M={} phi={:.2f} band_2".format(t1,t2,M,phi)
     plt.title(temp)
-    plt.savefig('./'+temp+'.png',dpi=800)
+    plt.savefig('./figs/'+temp+'.png',dpi=800)
     print("OK")
 
 if __name__=='__main__':
