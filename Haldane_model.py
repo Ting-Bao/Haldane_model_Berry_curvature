@@ -9,6 +9,7 @@ A training task on Haldane model:
 '''
 
 from math import cos, e, pi, sqrt
+from os import pathsep
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
@@ -33,10 +34,18 @@ def get_H(t1,t2,phi,k,M):
     return H
 
 
-def get_berryphase(kxlist,kylist,berry_curv,,kx_min=0.,kx_max=1.,ky_min= 0.,ky_max=1.):
-    """ draw a rectangle loop
+def get_berryphase(kxlist,kylist,berry_curv,dsize=0.05*0.05,kx_min=0.,kx_max=1.,ky_min= 0.,ky_max=1.):
+    """ intergrate in a rectangle area to get the Berry phase 
     dsize means the step using in meshing the BZ
     """
+    phase=0.
+    for i in range(len(kxlist)):
+        kx=kxlist[i]
+        ky-kylist[i]
+        if kx>=kx_min and kx<=kx_max and ky>=ky_min and ky<=ky_max:
+            phase+=dsize*berry_curv[i]
+    print(phase)
+    return phase
 
 def main(t1=1,t2=0.1,M=0.1,phi=pi/8):
     '''parameters, change as required
