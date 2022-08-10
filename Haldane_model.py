@@ -33,10 +33,20 @@ NNN = np.array([[-0.5,sqrt(3)/2],[-0.5,-sqrt(3)/2],[1.,0.]])
 
 dsize=(step**2)/(sqrt(3)/2*(klength**2))
 V=sqrt(3)/2
+
+#
+# to be debug !
+#
+
+# this is wrong
 dsize=step**2/(((2*pi)**2)/V)
-dsize=(step**2)/(2*pi/V*np.linalg.norm(np.cross([-0.5,sqrt(3)/2,0],[-0.5,-sqrt(3)/2,0]),ord=2))
+
+# this is right
+dsize=(step**2)/(np.linalg.norm(np.cross([-0.5,sqrt(3)/2,0],[-0.5,-sqrt(3)/2,0]),ord=2))
 print(np.cross([-0.5,sqrt(3)/2,0],[-0.5,-sqrt(3)/2,0]))
 print(np.linalg.norm(2*pi/V*np.cross([-0.5,sqrt(3)/2,0],[-0.5,-sqrt(3)/2,0])))
+
+
 def get_H(t1,t2,phi,k,M):
     '''t1 for NN hopping, 
     t2 for NNN hopping,
@@ -113,9 +123,9 @@ def main(t1,t2,M,phi):
         # print(bc1,bc2)        
         # should be real number, drop numerical error 
         
-        berry_curv_1.append(bc1.imag)
-        berry_curv_2.append(bc2.imag)
-        berry_curv_total.append(bc1.imag+bc2.imag)
+        berry_curv_1.append(2*bc1.imag)
+        berry_curv_2.append(2*bc2.imag)
+        berry_curv_total.append(2*bc1.imag+2*bc2.imag)
 
     chern_number=get_berryphase(kxlist=kxlist,kylist=kylist,berry_curv=berry_curv_1)/2/pi ##change which band to use!
     print("chern_number = {}".format(chern_number))
@@ -137,3 +147,4 @@ def main(t1,t2,M,phi):
 
 if __name__=='__main__':
     main(t1=1,t2=0.05,M=0.,phi=pi/2)
+    main(t1=1,t2=0.,M=0.5,phi=0)
