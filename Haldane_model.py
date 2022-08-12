@@ -7,45 +7,36 @@ A training task on Haldane model:
 2. Calculate the Berry phase
 3. Calculate the sgn(M)-depedent Chern number
 '''
-
-
 from math import cos, e, pi, sqrt
-from xmlrpc.client import FastMarshaller
 import numpy as np
 import matplotlib.pyplot as plt
-import pandas as pd
 from tqdm import tqdm
+
+lv=np.array([[-0.5,sqrt(3)/2,0],[-0.5,-sqrt(3)/2,0],[0,0,1]]) # lattice vectors
+V=np.dot(np.cross(lv[0], lv[1]), lv[2])
+rv=np.array([2*pi/V*np.cross(lv[1],lv[2]),2*pi/V*np.cross(lv[2],lv[0]),2*pi/V*np.cross(lv[0],lv[1])]) # recipical vectors
 
 npoints=100
 d_step=1e-10
 klength=4*pi/sqrt(3)
 step=12.05/npoints
-# lattice vector
 
 # NN: neareat neighbour, mark each element a_i 
 # NNN: next nearest neighbour, mark each element b_i
 NN = np.array([[0.5,sqrt(3)/6],[-0.5,sqrt(3)/6],[0.,-sqrt(3)/3]])
 NNN = np.array([[-0.5,sqrt(3)/2],[-0.5,-sqrt(3)/2],[1.,0.]])
 
+# to be debug !
+#
 # !!!!!!!!!!!!!!!!!!!!
 #  the d_size should be normalized!
 # !!!!!!!!!!!!!!!!!!!!
 
-dsize=(step**2)/(sqrt(3)/2*(klength**2))
-V=sqrt(3)/2
-
-#
-# to be debug !
-#
-
-# this is wrong
-dsize=step**2/(((2*pi)**2)/V)
-
 # this is right
-dsize=(step**2)/(np.linalg.norm(np.cross([-0.5,sqrt(3)/2,0],[-0.5,-sqrt(3)/2,0]),ord=2))
-print(np.cross([-0.5,sqrt(3)/2,0],[-0.5,-sqrt(3)/2,0]))
-print(np.linalg.norm(2*pi/V*np.cross([-0.5,sqrt(3)/2,0],[-0.5,-sqrt(3)/2,0])))
+Jaccob=2/sqrt(3)
+dsize=(step**2)*Jaccob
 
+#print (dsize,dsize_wrong)
 
 def get_H(t1,t2,phi,k,M):
     '''t1 for NN hopping, 
